@@ -4,7 +4,7 @@ body {
 
 .header {
     display: flex;
-    justify-content: space-between;
+    
 }
 
 .gameArea{
@@ -48,7 +48,22 @@ body {
     border-radius: 40em;
 }
 
+#save-score-button {
+    text-align: center;
+    background-color: azure;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid azure;
+    border-radius: 40em;
+    display: none;
+}
+
 #start-button:hover {
+    cursor: pointer;
+}
+
+#save-score-button:hover {
     cursor: pointer;
 }
 
@@ -59,4 +74,6 @@ body {
     border: solid black 0.25em;
     border-radius: 0.5em;
     line-height: 150%;
+    padding: 0em 0.25em;
+    cursor: pointer;
 }
