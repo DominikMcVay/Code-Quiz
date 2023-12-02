@@ -61,10 +61,14 @@ body {
 
 #start-button:hover {
     cursor: pointer;
+    background-color: rgb(180, 240, 240);
+    border-color: rgb(180, 240, 240);
 }
 
 #save-score-button:hover {
     cursor: pointer;
+    background-color: rgb(180, 240, 240);
+    border-color: rgb(180, 240, 240);
 }
 
 .gameArea p {
@@ -78,8 +82,6 @@ body {
     cursor: pointer;
 }
 
-#input-text {
-    margin-left: auto;
-    margin-right: auto;
-    display: none;
+.gameArea p:hover {
+    background-color: rgb(180, 240, 240);
 }

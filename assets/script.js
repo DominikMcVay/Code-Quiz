@@ -7,8 +7,7 @@ var answerOne = document.querySelector('#answer-1');
 var answerTwo = document.querySelector('#answer-2');
 var answerThree = document.querySelector('#answer-3');
 var answerFour = document.querySelector('#answer-4');
-var inputField = document.querySelector('#input-text');
-var inputText = document.querySelector('#input-text').value;
+var highScoreEl = document.querySelector('#view-high-scores');
 
 var score = 0;
 var questionNumber;
@@ -16,13 +15,11 @@ var secondsLeft;
 var answerNumber;
 var gameActive;
 var highScore;
+var initials;
 
 function saveScore() {
-    console.log(inputText);
-    // highScore = inputText;
-    console.log(highScore);
-    console.log(inputField);
-    console.log(inputText);
+    initials = prompt("Please input your initials here.");
+    highScoreEl.append(initials + ": " + score + " ");
 };
 
 function timesUp() {
@@ -130,7 +127,6 @@ function quizComplete() {
     answerTwo.textContent = ""
     answerThree.textContent = ""
     answerFour.textContent = ""
-    inputField.setAttribute('style', 'display: inline-block');
 };
 
 function questionFive() {
@@ -174,7 +170,6 @@ function questionOne() {
 };
 
 function gameStart() {
-    console.log("Game Started!");
     infoAndTimerEl.textContent = "60 seconds left...";
     questionNumber = 1;
     gameActive = true;
@@ -183,7 +178,6 @@ function gameStart() {
     secondsLeft = 60;
     score = 0;
     scoreEl.textContent = "Score: " + 0;
-    inputField.setAttribute('style', 'display: none');
     setTime();
     saveScoreEl.setAttribute('style', 'display: none');
     questionOne();
