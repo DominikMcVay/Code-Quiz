@@ -7,28 +7,47 @@ var answerOne = document.querySelector('#answer-1');
 var answerTwo = document.querySelector('#answer-2');
 var answerThree = document.querySelector('#answer-3');
 var answerFour = document.querySelector('#answer-4');
+var inputField = document.querySelector('#input-text');
+var inputText = document.querySelector('#input-text').value;
 
 var score = 0;
 var questionNumber;
 var secondsLeft;
 var answerNumber;
 var gameActive;
+var highScore;
+
+function saveScore() {
+    console.log(inputText);
+    // highScore = inputText;
+    console.log(highScore);
+    console.log(inputField);
+    console.log(inputText);
+};
 
 function timesUp() {
     infoAndTimerEl.textContent = "";
     challengeAndQuestionTitleEl.textContent = "Time's Up!";
     startButtonEl.setAttribute('style', 'display:block');
     gameActive = false;
-    saveScoreEl.setAttribute('style', 'display: inline-block')
+    saveScoreEl.setAttribute('style', 'display: inline-block');
+    answerOne.textContent = "";
+    answerTwo.textContent = "";
+    answerThree.textContent = "";
+    answerFour.textContent = "";
+    inputField.setAttribute('style', 'display: inline-block');
 };
 
 function setTime() {
     var timerInterval = setInterval(function() {
-      secondsLeft--;
-      infoAndTimerEl.textContent = secondsLeft + " seconds left...";
-      if(secondsLeft <= 0) {
+    if (gameActive === true) {
+        secondsLeft--;
+        infoAndTimerEl.textContent = secondsLeft + " seconds left...";
+        if(secondsLeft <= 0) {
         clearInterval(timerInterval);
         timesUp();
+      }} else {
+        clearInterval(timerInterval);
       }
     }, 1000)};
 
@@ -47,14 +66,103 @@ function answerChecker() {
             questionNumber = 2;
             scoreEl.setAttribute('style', 'color:red');
             questionTwo();
-        };
-    }   if (questionNumber === 2) {
+    }}   else if (questionNumber === 2) {
+            if (answerNumber === 3) {
+            score = score + 100;
+            scoreEl.textContent = "Score: " + score;
+            questionNumber = 3;
+            scoreEl.setAttribute('style', 'color:green');
+            questionThree();
+            } else {
+            secondsLeft = secondsLeft - 10;
+            infoAndTimerEl.textContent = secondsLeft + " seconds left...";
+            questionNumber = 3;
+            scoreEl.setAttribute('style', 'color:red');
+            questionThree();
+    }}  else if (questionNumber === 3) {
+            if (answerNumber === 1) {
+             score = score + 100;
+            scoreEl.textContent = "Score: " + score;
+            questionNumber = 4;
+            scoreEl.setAttribute('style', 'color:green');
+            questionFour();
+            } else {
+            secondsLeft = secondsLeft - 10;
+            infoAndTimerEl.textContent = secondsLeft + " seconds left...";
+            questionNumber = 4;
+            scoreEl.setAttribute('style', 'color:red');
+            questionFour();
+    }}  else if (questionNumber === 4) {
+            if (answerNumber === 3) {
+             score = score + 100;
+            scoreEl.textContent = "Score: " + score;
+            questionNumber = 5;
+            scoreEl.setAttribute('style', 'color:green');
+            questionFive();
+            } else {
+            secondsLeft = secondsLeft - 10;
+            infoAndTimerEl.textContent = secondsLeft + " seconds left...";
+            questionNumber = 5;
+            scoreEl.setAttribute('style', 'color:red');
+            quizComplete();
+    }}  else if (questionNumber === 5) {
+            if (answerNumber === 3) {
+            score = score + 100;
+            scoreEl.textContent = "Score: " + score;
+            questionNumber = 5;
+            scoreEl.setAttribute('style', 'color:green');
+            quizComplete();
+            } else {
+            secondsLeft = secondsLeft - 10;
+            infoAndTimerEl.textContent = secondsLeft + " seconds left...";
+            questionNumber = 5;
+            scoreEl.setAttribute('style', 'color:red');
+            quizComplete();
+}}}};
 
-    }
-};};
+function quizComplete() {
+    infoAndTimerEl.textContent = "";
+    challengeAndQuestionTitleEl.textContent = "Good job! You earned a score of " + score + "!";
+    startButtonEl.setAttribute('style', 'display:block');
+    gameActive = false;
+    saveScoreEl.setAttribute('style', 'display: inline-block')
+    answerOne.textContent = ""
+    answerTwo.textContent = ""
+    answerThree.textContent = ""
+    answerFour.textContent = ""
+    inputField.setAttribute('style', 'display: inline-block');
+};
+
+function questionFive() {
+    challengeAndQuestionTitleEl.textContent = "How do you change css properties in Javascript with the .setAttribute() function?";
+    answerOne.textContent = "'css'"
+    answerTwo.textContent = "'element'"
+    answerThree.textContent = "'style'"
+    answerFour.textContent = "'attribute'"
+};
+
+function questionFour() {
+    challengeAndQuestionTitleEl.textContent = "Which of the following is used to denote an id in css?";
+    answerOne.textContent = "."
+    answerTwo.textContent = "*"
+    answerThree.textContent = "#"
+    answerFour.textContent = ":"
+};
+
+function questionThree() {
+    challengeAndQuestionTitleEl.textContent = "What is the correct syntax for linking a .css file to your .html file?";
+    answerOne.textContent = "<link rel='stylesheet' ref='text/css' href='./assets/style.css'/>"
+    answerTwo.textContent = "<link rel='stylesheet' ref='text/css' src='./assets/style.css'/>"
+    answerThree.textContent = "<script rel='stylesheet' ref='text/css' href='./assets/style.css'/>"
+    answerFour.textContent = "<script rel='stylesheet' ref='text/css' src='./assets/style.css'/>"
+};
 
 function questionTwo() {
     challengeAndQuestionTitleEl.textContent = "Which file type is used to provide styling to webpages?";
+    answerOne.textContent = ".html"
+    answerTwo.textContent = ".jquery"
+    answerThree.textContent = ".css"
+    answerFour.textContent = ".doc"
 };
 
 function questionOne() {
@@ -75,6 +183,7 @@ function gameStart() {
     secondsLeft = 60;
     score = 0;
     scoreEl.textContent = "Score: " + 0;
+    inputField.setAttribute('style', 'display: none');
     setTime();
     saveScoreEl.setAttribute('style', 'display: none');
     questionOne();
@@ -101,6 +210,7 @@ function answerFourClicked() {
     answerChecker();
 };
 
+saveScoreEl.addEventListener('click', saveScore);
 startButtonEl.addEventListener('click', gameStart);
 answerOne.addEventListener('click', answerOneClicked);
 answerTwo.addEventListener('click', answerTwoClicked);
